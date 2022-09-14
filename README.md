@@ -11,6 +11,6 @@
 * Approach your device behind of some RFID reader
 * The RFID reader can read your device as a RFID/NFC tag
 
-<img src="emulating.jpeg" width="50%">
+<img src="emulating.png" width="50%">
 
 
