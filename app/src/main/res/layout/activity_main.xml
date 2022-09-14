@@ -41,7 +41,7 @@
             android:layout_marginBottom="20dp"
             android:gravity="center|bottom"
             android:text="Emulating..."
-            android:textColor="@color/black"
+            android:textColor="#454545"
             android:textStyle="bold|italic" />
 
         <ImageView
