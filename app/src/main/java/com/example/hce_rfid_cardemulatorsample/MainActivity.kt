@@ -37,8 +37,7 @@ class MainActivity : AppCompatActivity() {
         if(packageManager.hasSystemFeature(PackageManager.FEATURE_NFC_HOST_CARD_EMULATION)){
             startBlinkEffect(binding.emulating)
         } else {
-            //binding.emulating.text = "Your device can NOT emulate NFC cards"
-            startBlinkEffect(binding.emulating)
+            binding.emulating.text = "Your device can NOT emulate NFC cards"
         }
     }
 }
