@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HCE_RFID_CardEmulatorSample</string>
+    <string name="servicedesc">servicedesc</string>
+    <string name="aiddescription">aiddescription</string>
 </resources>

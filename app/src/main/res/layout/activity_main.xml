@@ -16,7 +16,7 @@
         android:layout_marginEnd="24dp"
         android:backgroundTint="#BDBDBD"
         app:cardCornerRadius="20dp"
-        app:cardElevation="200dp"
+        app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:gravity="center|bottom"
-            android:text="Emulating..."
+            android:text=""
             android:textColor="#454545"
             android:textStyle="bold|italic" />
 
@@ -53,5 +53,27 @@
             android:src="@drawable/img" />
 
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/button_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="Start"
+        android:backgroundTint="#BDBDBD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="Stop"
+        android:backgroundTint="#BDBDBD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
