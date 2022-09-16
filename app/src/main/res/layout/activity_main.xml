@@ -54,26 +54,28 @@
 
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/button_start"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="32dp"
-        android:text="Start"
-        android:backgroundTint="#BDBDBD"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_margin="24dp"
+        android:textSize="18sp"
+        android:text="APDU response:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rfidCardView" />
 
-    <Button
-        android:id="@+id/button_stop"
+    <EditText
+        android:id="@+id/editTextApduResponse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:text="Stop"
-        android:backgroundTint="#BDBDBD"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_marginStart="10dp"
+        android:maxLength="20"
+        android:text="Hello RFID"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
