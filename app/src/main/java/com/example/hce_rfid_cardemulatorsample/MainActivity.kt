@@ -6,10 +6,12 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.hce_rfid_cardemulatorsample.databinding.ActivityMainBinding
 
 
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var hostApduServiceIntent: Intent
+    private var messageObserver : Observer<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         checkIfDeviceCanEmulateHostNFCTag()
         binding.editTextApduResponse.setText(Utils.APDURESPONSE)
         setupApduTextChangedListener()
+        setMessageObserver()
     }
 
     override fun onResume() {
@@ -48,6 +52,19 @@ class MainActivity : AppCompatActivity() {
             PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
             PackageManager.DONT_KILL_APP
         )
+    }
+
+
+    private fun setMessageObserver() {
+        messageObserver = Observer { msg ->
+            Log.d("layon.f", "MainActivity setMessageObserver $msg")
+            runOnUiThread {
+                binding.logtextView.append(msg)
+            }
+        }
+        messageObserver?.let {
+            LiveDataManager.messageLiveData().observe(this, it)
+        }
     }
 
     private fun setupApduTextChangedListener() {

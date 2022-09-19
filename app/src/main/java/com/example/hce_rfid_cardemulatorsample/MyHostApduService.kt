@@ -7,75 +7,79 @@ import android.util.Log
 
 class MyHostApduService : HostApduService() {
 
+    private var n = 1
+
     // The `processCommandApdu` method will be called every time a card
     // reader sends an APDU command that is filtered by our manifest filter.
     override fun processCommandApdu(commandApdu: ByteArray, extras: Bundle?): ByteArray {
-        Log.d("layon.f", "processCommandApdu(commandApdu = $commandApdu, extras = $extras)")
+        Log.d("layon.f", "MyHostApduService processCommandApdu(commandApdu = ${Utils.toHex(commandApdu)}, extras = $extras)")
+        var msg : String
+
+        //LiveDataManager.updateMessage("HostApduService processCommandApdu() start...")
+        msg = "${n++} - HostApduService processCommandApdu(commandApdu = ${Utils.toHex(commandApdu)}, extras = $extras) start...\n"
+
+        var response : ByteArray
 
         if (commandApdu == null) {
-            return Utils.hexStringToByteArray(STATUS_FAILED)
+            msg += "\"${n++} - HostApduService processCommandApdu() commandApdu == null\n"
+            response = Utils.hexStringToByteArray(STATUS_FAILED)
         }
 
         val hexCommandApdu = Utils.toHex(commandApdu)
-        if (hexCommandApdu.length < MIN_APDU_LENGTH) {
-            return Utils.hexStringToByteArray(STATUS_FAILED)
-        }
-
-        if (hexCommandApdu.substring(0, 2) != DEFAULT_CLA) {
-            return Utils.hexStringToByteArray(CLA_NOT_SUPPORTED)
-        }
-
-        if (hexCommandApdu.substring(2, 4) != SELECT_INS) {
-            return Utils.hexStringToByteArray(INS_NOT_SUPPORTED)
-        }
 
         if (hexCommandApdu.substring(10, 24) == AID)  {
-            return Utils.APDURESPONSE.toByteArray()
+            response = Utils.APDURESPONSE.toByteArray()
         } else {
-            return Utils.hexStringToByteArray(STATUS_FAILED)
+            response = Utils.hexStringToByteArray(STATUS_FAILED)
         }
 
+        msg += "${n++} - HostApduService processCommandApdu() return : ${String(response)}\n"
+
+        msg += "${n++} - HostApduService processCommandApdu() ending...\n"
+
+
+        LiveDataManager.updateMessage(msg)
+
+        return response
     }
 
     // The `onDeactiveted` method will be called when the a different
     // AID has been selected or the NFC connection has been lost
     override fun onDeactivated(reason: Int) {
-        Log.d(
-            TAG, "onDeactivated(reason = ${
-                when (reason) {
-                    0 -> "DEACTIVATION_LINK_LOSS"
-                    1 -> "DEACTIVATION_DESELECTED"
-                    else -> "UNKNOWN"
-                }
-            }"
-        )
+        val reason = "HostApduService onDeactivated(reason = ${
+            when (reason) {
+                0 -> "DEACTIVATION_LINK_LOSS"
+                1 -> "DEACTIVATION_DESELECTED"
+                else -> "UNKNOWN"
+            }
+        }"
+        Log.d(TAG, reason)
+        LiveDataManager.updateMessage("${n++} - $reason\n")
     }
 
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "MyHostApduService onCreate()")
+        LiveDataManager.updateMessage("${n++} - HostApduService onCreate()\n")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(TAG, "onStartCommand intent: $intent, flags: $flags, startId: $startId")
+        Log.d(TAG, "MyHostApduService onStartCommand intent: $intent, flags: $flags, startId: $startId")
+        LiveDataManager.updateMessage("${n++} - HostApduService onStartCommand intent: $intent, flags: $flags, startId: $startId\n")
         return super.onStartCommand(intent, flags, startId)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "MyHostApduService onDestroy()")
+        LiveDataManager.updateMessage("${n++} - HostApduService onDestroy()\n\n")
     }
 
     companion object {
         val TAG = "layon.f"
         val STATUS_SUCCESS = "9000"
-        val STATUS_FAILED = "6F00"
-        val CLA_NOT_SUPPORTED = "6E00"
-        val INS_NOT_SUPPORTED = "6D00"
+        val STATUS_FAILED = "Fail"
         val AID = "F0010203040506"
-        val SELECT_INS = "A4"
-        val DEFAULT_CLA = "00"
-        val MIN_APDU_LENGTH = 12
     }
 
 }

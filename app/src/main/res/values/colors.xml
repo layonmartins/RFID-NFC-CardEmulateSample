@@ -11,4 +11,5 @@
     <color name="gray2">#AFAFAF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="whiteBlue">#B8C8FF</color>
+    <color name="logsBackground">#E4E4E4</color>
 </resources>
