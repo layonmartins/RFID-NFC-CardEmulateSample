@@ -13,4 +13,6 @@
 
 <img src="emulating.png" width="50%">
 
-
+## Reference
+* https://developer.android.com/guide/topics/connectivity/nfc/hce
+* https://medium.com/the-almanac/how-to-build-a-simple-smart-card-emulator-reader-for-android-7975fae4040f
